@@ -30,6 +30,7 @@ task deployLocally(type: NodeTask, dependsOn: npmInstall) {
     script = file('app/personal_site.js')
 }
 
-task deployToHeroku {
-    "scripts/deploy_to_heroku.sh".execute()
+task deployToHeroku(type: Exec) {
+    workingDir "${project.rootDir}"
+    commandLine "${project.projectDir}/scripts/deploy_to_heroku.sh"
 }
