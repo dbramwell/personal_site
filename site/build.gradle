@@ -8,20 +8,24 @@ node {
     distBaseUrl = 'http://nodejs.org/dist'
     download = true
     workDir = file("${project.buildDir}/nodejs")
-    nodeModulesDir = file("${project.projectDir}")
+    nodeModulesDir = file("${project.projectDir}/app")
 }
 
 def stopLocal() {
+    logger.quiet("Killing node...")
     "killall node".execute()
 }
 
-task deployLocally(type: NpmTask, dependsOn: npmInstall) {
-    doFirst {
-        stopLocal()
+npmInstall {
+    execOverrides {
+        it.workingDir = "${project.projectDir}/app"
     }
-    args = ['start']
 }
 
-task stage(type: NpmTask, dependsOn: npmInstall) {
-    args = ['start']
+task deployLocally(type: NodeTask, dependsOn: npmInstall) {
+    doFirst {
+        stopLocal()
+        logger.quiet("Node instances killed, starting app...")
+    }
+    script = file('app/personal_site.js')
 }
