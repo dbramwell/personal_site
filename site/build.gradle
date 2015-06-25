@@ -21,3 +21,7 @@ task deployLocally(type: NpmTask, dependsOn: npmInstall) {
     }
     args = ['start']
 }
+
+task stage(type: NpmTask, dependsOn: npmInstall) {
+    args = ['start']
+}
