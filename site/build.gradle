@@ -29,3 +29,7 @@ task deployLocally(type: NodeTask, dependsOn: npmInstall) {
     }
     script = file('app/personal_site.js')
 }
+
+task deployToHeroku {
+    "scripts/deploy_to_heroku.sh".execute()
+}
