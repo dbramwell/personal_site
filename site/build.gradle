@@ -1,0 +1,23 @@
+plugins {
+    id "com.moowork.node" version "0.10"
+}
+
+node {
+    version = '0.12.5'
+    npmVersion = '2.1.5'
+    distBaseUrl = 'http://nodejs.org/dist'
+    download = true
+    workDir = file("${project.buildDir}/nodejs")
+    nodeModulesDir = file("${project.projectDir}")
+}
+
+def stopLocal() {
+    "killall node".execute()
+}
+
+task deployLocally(type: NpmTask, dependsOn: npmInstall) {
+    doFirst {
+        stopLocal()
+    }
+    args = ['start']
+}

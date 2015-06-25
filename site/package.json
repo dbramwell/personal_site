@@ -1,0 +1,25 @@
+{
+  "name": "personal_site",
+  "version": "0.0.1",
+  "description": "Site containing info about David Bramwell",
+  "main": "app.js",
+  "scripts": {
+    "start": "node personal_site.js"
+  },
+  "dependencies": {
+    "express": "~4.9.x"
+  },
+  "engines": {
+    "node": "0.12.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dbramwell/personal_site"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
+}
