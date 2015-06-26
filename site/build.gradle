@@ -60,6 +60,6 @@ task deployToHeroku(type: Exec, dependsOn: test) {
 }
 
 test.dependsOn deployLocallyForAutomatedTests
-test.doLast {stopLocal}
+test.doLast {stopLocal()}
 
 
