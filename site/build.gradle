@@ -2,13 +2,27 @@ plugins {
     id "com.moowork.node" version "0.10"
 }
 
+apply plugin: 'groovy'
+
+ext.junitVersion = '4.11'
+ext.seleniumVersion = '2.46.0'
+
+dependencies {
+    testCompile 'org.codehaus.groovy:groovy-all:2.4.3',
+    "junit:junit:${junitVersion}",
+    "org.seleniumhq.selenium:selenium-firefox-driver:${seleniumVersion}",
+    "org.seleniumhq.selenium:selenium-chrome-driver:${seleniumVersion}",
+    "org.seleniumhq.selenium:selenium-api:${seleniumVersion}",
+    "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+}
+
 node {
     version = '0.12.5'
     npmVersion = '2.1.5'
     distBaseUrl = 'http://nodejs.org/dist'
     download = true
     workDir = file("${project.buildDir}/nodejs")
-    nodeModulesDir = file("${project.projectDir}/app")
+    nodeModulesDir = file("${project.projectDir}/src/app")
 }
 
 def stopLocal() {
@@ -18,19 +32,34 @@ def stopLocal() {
 
 npmInstall {
     execOverrides {
-        it.workingDir = "${project.projectDir}/app"
+        it.workingDir = "${project.projectDir}/src/app"
     }
 }
 
-task deployLocally(type: NodeTask, dependsOn: npmInstall) {
+task deployLocallyForAutomatedTests(dependsOn: npmInstall) {
+    doLast {
+        Thread.start {
+            localDeploy.execute()
+        }
+    }
+
+    sleep 10000
+}
+
+task localDeploy(type: NodeTask, dependsOn: npmInstall) {
     doFirst {
         stopLocal()
         logger.quiet("Node instances killed, starting app...")
     }
-    script = file('app/personal_site.js')
+    script = file('src/app/personal_site.js')
 }
 
-task deployToHeroku(type: Exec) {
+task deployToHeroku(type: Exec, dependsOn: test) {
     workingDir "${project.rootDir}"
     commandLine "${project.projectDir}/scripts/deploy_to_heroku.sh"
 }
+
+test.dependsOn deployLocallyForAutomatedTests
+test.doLast {stopLocal}
+
+
