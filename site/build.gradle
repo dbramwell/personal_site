@@ -7,8 +7,16 @@ apply plugin: 'groovy'
 ext.junitVersion = '4.11'
 ext.seleniumVersion = '2.46.0'
 
+sourceSets {
+    integrationTest {
+        groovy {
+            srcDir "src/integrationTest/groovy"
+        }
+    }
+}
+
 dependencies {
-    testCompile 'org.codehaus.groovy:groovy-all:2.4.3',
+    integrationTestCompile 'org.codehaus.groovy:groovy-all:2.4.3',
     "junit:junit:${junitVersion}",
     "org.seleniumhq.selenium:selenium-firefox-driver:${seleniumVersion}",
     "org.seleniumhq.selenium:selenium-chrome-driver:${seleniumVersion}",
@@ -27,7 +35,12 @@ node {
 
 def stopLocal() {
     logger.quiet("Killing node...")
-    "killall node".execute()
+    def killProcess = "killall node".execute()
+    killProcess.in.eachLine {line ->
+        logger.quiet line
+    }
+
+    logger.quiet killProcess.err.text
 }
 
 npmInstall {
@@ -36,30 +49,30 @@ npmInstall {
     }
 }
 
-task deployLocallyForAutomatedTests(dependsOn: npmInstall) {
-    doLast {
-        Thread.start {
-            localDeploy.execute()
-        }
-    }
-
-    sleep 10000
-}
-
-task localDeploy(type: NodeTask, dependsOn: npmInstall) {
+task localDeploy(dependsOn: npmInstall) {
     doFirst {
         stopLocal()
         logger.quiet("Node instances killed, starting app...")
     }
-    script = file('src/app/personal_site.js')
+    doLast {
+        def startProcess = "${project.node.workDir}/node-v${project.node.version}-linux-x64/bin/node $project.projectDir/src/app/personal_site.js"
+                .execute()
+    }
 }
 
-task deployToHeroku(type: Exec, dependsOn: test) {
+task integrationTest(type: Test, dependsOn: npmInstall) {
+    doFirst { localDeploy.execute() }
+    inputs.dir "$project.projectDir/src/app"
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    doLast {
+        stopLocal()
+    }
+}
+
+task deployToHeroku(type: Exec, dependsOn: integrationTest) {
     workingDir "${project.rootDir}"
-    commandLine "${project.projectDir}/scripts/deploy_to_heroku.sh"
+    commandLine "${project.projectDir}/src/scripts/deploy_to_heroku.sh"
+    args = ["$project.rootDir"]
 }
-
-test.dependsOn deployLocallyForAutomatedTests
-test.doLast {stopLocal()}
-
 
