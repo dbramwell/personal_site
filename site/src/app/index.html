@@ -78,7 +78,7 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <h1 class="brand-heading">David Bramwell</h1>
-                        <p class="intro-text">Curriculum Vitae<br>Created by Start Bootstrap.</p>
+                        <p class="intro-text">Curriculum Vitae</p>
                         <a href="#education" class="btn btn-circle page-scroll">
                             <i class="fa fa-angle-double-down animated"></i>
                         </a>
@@ -94,15 +94,15 @@
             <div class="col-lg-8 col-lg-offset-2">
                 <h2>Education</h2>
                 <h3>A-Levels</h3>
-                <p>Maths: A</p>
-                <p>Further Maths: A</p>
-                <p>Physics: C</p>
+                <p>Maths: A</p><br>
+                <p>Further Maths: A</p><br>
+                <p>Physics: C</p><br>
                 <h3>Degree</h3>
-                <p>2:2 BSC Degree in Mathematics from Nottingham University</p>
+                <p>2:2 BSC Degree in Mathematics from Nottingham University</p><br>
                 <h4>Core Subjects:</h4>
-                <p>Stochastic Models</p>
-                <p>Coding and Cryptography</p>
-                <p>Numerical and Computational Methods</p>
+                <p>Stochastic Models,</p><br>
+                <p>Coding and Cryptography,</p><br>
+                <p>Numerical and Computational Methods,</p><br>
                 <p>Analytical and Computational Foundations</p>
             </div>
         </div>
@@ -110,7 +110,7 @@
 
     <!-- Download Section -->
     <section id="expertise" class="content-section text-center">
-        <div class="download-section">
+        <div class="image-section">
             <div class="container">
                 <div class="col-lg-8 col-lg-offset-2">
                     <h2>Expertise</h2>
@@ -132,29 +132,31 @@
 
     <section id="experience" class="container content-section text-center">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
             <h2>Current and Past Work</h2>
             <h3>FDM: Novemeber 2011 – Present</h3>
-            <p>FDM is an IT services provider with a large number of clients on a global scale. While working with FDM I was placed on two client sites in two different roles:</p>
+            <p>FDM is an IT services provider with a large number of clients on a global scale.</p>
+            <p>While working with FDM I was placed on two client sites in two different roles:</p>
 
-
+            <div class="subsection">
             <h4>UBS Investment Bank (Dev-Ops): April 2013 - Present</h4>
 
+                
+        <p>Implemented a “build once” pipeline for 9 major components using gradle and teamcity. During this process we migrated from using maven as a build tool to using gradle to free ourselves from the maven build cycle, and configured our teamcity pipeline to pass built artifacts along to avoid rebuilding in the various test phases.</p>
+        <p>Developed a build radiator using Groovy, Ratpack, AngularJS and Javascript to display current build statuses, as well as a score board of which Developers had broken builds or commited on broken builds without fixing them.</p>
+        <p>Performed a migration of data from 10g to 11g Oracle databases in two test environments before decommissioning the 10g databases.</p>
+        <p>Coordinated an upgrade of 3 testing environments from using an MQ6 to an MQ7 server, making changes to our own environment and liasing with other teams to make changes to their connected applications.</p>
+        <p>Developed scripts using Groovy, gradle, and teamcity, rally, github and svn APIs to automate processes between the tools such as creating changesets in Rally for each commit, creating teamcity projects and scm roots for new repos, reporting on rally stories included in the next release and more.</p>
+        <p>Created a server that adds dynamic images to pull requests that report on the status of the teamcity pipeline for that branch as well as master, to enable devs to see easily if it's ok to merge.</p>
+        </div>
 
-    <p>Implemented a “build once” pipeline for 9 major components using gradle and teamcity. During this process we migrated from using maven as a build tool to using gradle to free ourselves from the maven build cycle, and configured our teamcity pipeline to pass built artifacts along to avoid rebuilding in the various test phases.
-    Developed a build radiator using Groovy, Ratpack, AngularJS and Javascript to display current build statuses, as well as a score board of which Developers had broken builds or commited on broken builds without fixing them.
-    Performed a migration of data from 10g to 11g Oracle databases in two test environments before decommissioning the 10g databases.
-    Coordinated an upgrade of 3 testing environments from using an MQ6 to an MQ7 server, making changes to our own environment and liasing with other teams to make changes to their connected applications.
-    Developed scripts using Groovy, gradle, and teamcity, rally, github and svn APIs to automate processes between the tools such as creating changesets in Rally for each commit, creating teamcity projects and scm roots for new repos, reporting on rally stories included in the next release and more.
-    Created a server that adds dynamic images to pull requests that report on the status of the teamcity pipeline for that branch as well as master, to enable devs to see easily if it's ok to merge.</p>
-
-
+            <div class="subsection">
             <h4>Betfair (QA automation engineer): November 2011 – March 2013</h4>
 
 
-    <p>Developed a number of test packs for front-end applications and APIs using java, groovy and selenium.
-    Implemented a solution using Jenkins and maven to build and run test packs daily against production to monitor status, as well as against newly deployed code in the various pre-prod environments as part of the continuous delivery build pipeline.
-    Provided testing support for changes in third party applications that could possibly affect our own, as well as an upgrade from Oracle 10 to Oracle 11 and a migration of the production data centre.</p>
+    <p>Developed a number of test packs for front-end applications and APIs using java, groovy and selenium.</p>
+    <p>Implemented a solution using Jenkins and maven to build and run test packs daily against production to monitor status, as well as against newly deployed code in the various pre-prod environments as part of the continuous delivery build pipeline.</p>
+    <p>Provided testing support for changes in third party applications that could possibly affect our own, as well as an upgrade from Oracle 10 to Oracle 11 and a migration of the production data centre.</p>
+            </div>
             </div>
         </div>
     </section>

@@ -57,6 +57,13 @@ task localDeploy(dependsOn: npmInstall) {
     doLast {
         def startProcess = "${project.node.workDir}/node-v${project.node.version}-linux-x64/bin/node $project.projectDir/src/app/personal_site.js"
                 .execute()
+        if (project.gradle.startParameter.taskRequests.first().args == ["localDeploy"]) {
+            startProcess.in.eachLine {line ->
+                logger.quiet line
+            }
+
+            logger.quiet startProcess.err.text
+        }
     }
 }
 
