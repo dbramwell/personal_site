@@ -26,6 +26,12 @@ class MainTests {
         assertFalse(driver.findElement(By.className("navbar")).getAttribute('class').contains('top-nav-collapse'))
     }
 
+    @Test
+    public void testEducationSectionDisplayed() throws Exception {
+        driver.get("$baseUrl/#education")
+        driver.findElement(By.cssSelector("li.active a")).getAttribute("href") == "#education"
+    }
+
     @After
     public void tearDown() throws Exception {
         driver.quit()
